@@ -24,7 +24,7 @@ export default defineConfig({
       name: 'prueba-app',
       remotes: {
         'Microfrontend-vue2': {
-          external: `Promise.resolve('http://localhost:5005/assets/Microfrontend-vue2.js')`,
+          external: `Promise.resolve('http://localhost:5005/assets/proyect.js')`,
           externalType: "promise"
         },
         'Microfrontend-vue3': {
@@ -32,9 +32,12 @@ export default defineConfig({
           externalType: "promise"
         },
       },
+      exposes: {
+        './sharedModule': './sharedModule.js',
+      },
       shared: {
-        vue:{
-        },
+        vue:{},
+        vuex: {},
       }
     }),
     topLevelAwait({
