@@ -32,9 +32,6 @@ export default defineConfig({
           externalType: "promise"
         },
       },
-      exposes: {
-        './sharedModule': './sharedModule.js',
-      },
       shared: {
         vue:{},
         vuex: {},
