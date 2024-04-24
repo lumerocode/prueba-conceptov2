@@ -14,14 +14,15 @@
           <a class="nav-link" href="#">Link</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">token: {{ token }}</a>
+          <a class="nav-link" href="#">token: {{ getToken }}</a>
         </li>
       </ul>
       <div class="d-flex flex-column position-relative">
         <button class="btn btn-outline-success" @click="showModalLogin()">Iniciar sesion</button>
         <div v-if="displayModalLogin" class="modal-login position-fixed top-0 start-0">
           <div class="content-modal">         
-            <Login    
+            <Login
+            @loginSuccess="loginSuccess"    
             />
           </div> 
           <div class="bg-modal" @click="showModalLogin()"></div>          
@@ -35,7 +36,8 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import Login  from 'Microfrontend-vue3/Login'
-import {useAuthentication} from 'Microfrontend-vue3/useAuthentication'
+import { useAuthentication } from '@/composables/useAuthentication'
+import router from '@/router';
 
 export default defineComponent({
   components:{
@@ -43,16 +45,22 @@ export default defineComponent({
   },
   setup () {
     const displayModalLogin = ref(false);
-    const token = useAuthentication().token
+    const { getToken, initSessionMain } = useAuthentication()
 
     function showModalLogin() {
       return displayModalLogin.value = !displayModalLogin.value
     }
 
+    function loginSuccess(token: string){
+      initSessionMain(token)
+      router.push('/app/dashboard')
+    }
+
     return {
       showModalLogin,
       displayModalLogin,
-      token
+      getToken,
+      loginSuccess
     }
   }
 })

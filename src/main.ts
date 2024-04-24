@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store, {key} from 'Microfrontend-vue3/remoteStore'
+import store, {key} from '@/store'
 
 const app = createApp(App)
 

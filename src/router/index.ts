@@ -1,29 +1,35 @@
 import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocationNormalized } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
-//import store from 'Microfrontend-vue3/remoteStore'
+import { useAuthentication } from '@/composables/useAuthentication'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
       name: 'home',
       component: HomeView
+    },    
+    {
+      path: '/app/dashboard',
+      name: 'dashboard',
+      component: () => import('Microfrontend-vue2/HelloWorld'),
+      meta: { requiresAuth: true }
     },
   ]
 });
 
-/*
+
 router.beforeEach((to, from, next) => {
-  if (store.state.token) {
-    console.log(store.state.token)
+
+  const { getToken } = useAuthentication()
+  const isAuthenticated = getToken.value;
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/')
   } else {
-    console.log(store)
-    console.log('nada')
-    next('/');
+    next();
   }
 });
-*/
 
 
 export default router;
