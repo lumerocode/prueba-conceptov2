@@ -1,5 +1,5 @@
 <template>
-  <div>        
+  <div class="nav-bar">        
     <NavBar/>
   </div>
 </template>
@@ -20,5 +20,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+.nav-bar{
+  width: 100%;
+}
 </style>

@@ -13,11 +13,18 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">token: {{ token }}</a>
+        </li>
       </ul>
-      <div class="d-flex">
+      <div class="d-flex flex-column position-relative">
         <button class="btn btn-outline-success" @click="showModalLogin()">Iniciar sesion</button>
-        <div v-if="displayModalLogin">
-
+        <div v-if="displayModalLogin" class="modal-login position-fixed top-0 start-0">
+          <div class="content-modal">         
+            <Login    
+            />
+          </div> 
+          <div class="bg-modal" @click="showModalLogin()"></div>          
         </div>
       </div>
     </div>
@@ -27,10 +34,16 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import Login  from 'Microfrontend-vue3/Login'
+import {useAuthentication} from 'Microfrontend-vue3/useAuthentication'
 
 export default defineComponent({
+  components:{
+    Login
+  },
   setup () {
     const displayModalLogin = ref(false);
+    const token = useAuthentication().token
 
     function showModalLogin() {
       return displayModalLogin.value = !displayModalLogin.value
@@ -38,12 +51,32 @@ export default defineComponent({
 
     return {
       showModalLogin,
-      displayModalLogin
+      displayModalLogin,
+      token
     }
   }
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.bg-modal{
+  background-color: rgba(19,19,71,.2);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  z-index: -1;
+}
+.modal-login{  
+  width: 100%;
+  height: 100%;
+}
 
+.content-modal{
+  position: absolute;
+  width: 320px;
+  margin-top: 4rem;
+  top: 0;
+  right: 1rem;
+}
 </style>
