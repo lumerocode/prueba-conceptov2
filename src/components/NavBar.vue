@@ -53,6 +53,7 @@ export default defineComponent({
 
     function loginSuccess(token: string){
       initSessionMain(token)
+      showModalLogin()
       router.push('/app/dashboard')
     }
 

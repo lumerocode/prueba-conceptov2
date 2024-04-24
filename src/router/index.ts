@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocationNormalized } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import { useAuthentication } from '@/composables/useAuthentication'
+import NewHelloworld from '@/components/NewHelloworld.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,7 +14,7 @@ const router = createRouter({
     {
       path: '/app/dashboard',
       name: 'dashboard',
-      component: () => import('Microfrontend-vue2/HelloWorld'),
+      component: NewHelloworld,
       meta: { requiresAuth: true }
     },
   ]

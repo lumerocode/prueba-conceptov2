@@ -1,6 +1,6 @@
 <template>
   <div>
-holii
+    Panel Principal 
   </div>
 </template>
 
