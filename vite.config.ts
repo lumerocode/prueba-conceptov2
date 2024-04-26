@@ -2,7 +2,6 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import VueDevTools from 'vite-plugin-vue-devtools'
 import federation from "@originjs/vite-plugin-federation";
 import topLevelAwait from 'vite-plugin-top-level-await'
 
@@ -43,7 +42,6 @@ export default defineConfig({
       // The function to generate import names of top-level await promise in each chunk module
       promiseImportName: i => `__tla_${i}`
     }),
-    VueDevTools(),
   ],
   resolve: {
     alias: {

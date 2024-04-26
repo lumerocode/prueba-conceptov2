@@ -1,18 +1,10 @@
 import { computed, onMounted } from 'vue'
 import { useStore } from '@/store'
-import * as Cookie from 'js-cookie'
 
 export const useAuthentication = () => {
   const store = useStore()
 
-  onMounted(() => {
-    const token = Cookie.default.get('jwt_main') || ''
-    if(token){
-      store.dispatch('authentication/initSessionMain', { token })
-    }
-  });
-
-  return {
+   return {
     //State
     token: computed( () => store.state.authentication.token ),
 

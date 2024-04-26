@@ -1,35 +1,52 @@
 import { createRouter, createWebHistory, type NavigationGuardNext, type RouteLocationNormalized } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import { useAuthentication } from '@/composables/useAuthentication'
+import authMiddleware from '@/middleware/AuthMiddleware';
+import DefaultLayout from '@/layout/DefaultLayout.vue';
+import HomePage from '@/pages/home/index.vue';
 import NewHelloworld from '@/components/NewHelloworld.vue';
+import LoginPage from '@/components/LoginPage.vue';
+
+
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'Public',
+      component: DefaultLayout,
+      children: [
+        {
+          path: '/',
+          name: 'Home',
+          component: HomePage
+        }
+      ]
+    },
+    {
+      path:'/login',
+      name: 'Login',
+      component: LoginPage
     },    
     {
-      path: '/app/dashboard',
-      name: 'dashboard',
-      component: NewHelloworld,
-      meta: { requiresAuth: true }
+      path: '/app/',
+      name: 'app',
+      component: DefaultLayout, // <- Aqui poner tu layout para intranet
+      beforeEnter: authMiddleware,
+      children: [
+        {
+          path: 'dashboard',
+          name: 'Dashboard',
+          component: NewHelloworld,
+        },
+        {
+          path: 'invertir',
+          name: 'Invertir',
+          component: NewHelloworld,
+        },
+
+      ]
     },
   ]
-});
-
-
-router.beforeEach((to, from, next) => {
-
-  const { getToken } = useAuthentication()
-  const isAuthenticated = getToken.value;
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/')
-  } else {
-    next();
-  }
 });
 
 
