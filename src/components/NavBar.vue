@@ -78,6 +78,7 @@ export default defineComponent({
 .modal-login{  
   width: 100%;
   height: 100%;
+  z-index: 10;
 }
 
 .content-modal{

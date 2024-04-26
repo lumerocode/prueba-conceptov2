@@ -1,12 +1,11 @@
 <template>
   <div>
-    <div>
-        <h1> Pagina Principal</h1> 
-        <h4> Home</h4>
-    </div>
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-          <img width="300" src="https://picsum.photos/250/250/?image=59" alt="Third slide">
+      <div class="cover">
+        <div class="container">
+          <div>Izquierda</div>
+          <div>Derecha</div>
+        </div>
       </div>
     </div>
   </div>
@@ -25,5 +24,20 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.cover {
+  background: #00ca75;
+  display: flex;
+  height: calc(70vh - 80px);
+  min-height: 500px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cover .container {
+  max-width: 1140px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 
 </style>
